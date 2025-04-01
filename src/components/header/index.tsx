@@ -9,7 +9,7 @@ export default function Header() {
         <ul className="flex space-x-4">
           <li>
             <a href="/" className="hover:text-gray-400 px-10">
-              Incio
+              Início
             </a>
           </li>
 
