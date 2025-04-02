@@ -134,7 +134,7 @@ export default function Projetos({limit }: { limit?: number }) {
                       className="bg-sky-700 text-white px-4 py-2 rounded flex items-center"
                     >
                       <FaExternalLinkAlt className="mr-2" />
-                      Live
+                      acessar projeto
                     </a>
                     <a
                       href={projeto.code}
@@ -143,13 +143,15 @@ export default function Projetos({limit }: { limit?: number }) {
                       className="bg-gray-200 text-gray-800 px-4 py-2 rounded flex items-center"
                     >
                       <FaGithub className="mr-2" />
-                      Code
+                      Código
                     </a>
                   </div>
                 </div>
               </div>
             ))}
           </div>
+          
         </>
+
       );
     }

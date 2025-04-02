@@ -14,12 +14,12 @@ export default function Header() {
           </li>
 
           <li>
-            <a href="/" className="hover:text-gray-400 px-10">
+            <a href="/projetos" className="hover:text-gray-400 px-10">
               Projetos
             </a>
           </li>
           <li>
-            <a href="/" className="hover:text-gray-400 px-10">
+            <a href="/contato" className="hover:text-gray-400 px-10">
               Contato
             </a>
           </li>
