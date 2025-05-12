@@ -13,7 +13,7 @@ const ServicosPage: React.FC = () => {
       </p>
 
       <div className="flex flex-wrap justify-center gap-8">
-        {/* Pacote Básico */}
+  
         <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-6 w-80 hover:shadow-xl transition-shadow duration-300">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">
             Pacote Básico
@@ -25,7 +25,7 @@ const ServicosPage: React.FC = () => {
           </ul>
         </div>
 
-        {/* Pacote Intermediário */}
+     
         <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-6 w-80 hover:shadow-xl transition-shadow duration-300">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">
             Pacote Intermediário
@@ -38,7 +38,7 @@ const ServicosPage: React.FC = () => {
           </ul>
         </div>
 
-        {/* Pacote Avançado */}
+     
         <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-6 w-80 hover:shadow-xl transition-shadow duration-300">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">
             Pacote Avançado
