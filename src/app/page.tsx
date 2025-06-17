@@ -1,6 +1,7 @@
 import Hero from "@/components/hero/hero";
 import Projetos from "@/components/projetos/projetos";
 import Stact from "@/components/Stack/stack";
+import Footer from "@/components/footer/footer";
 
 export default function Home() {
   const limit = 3;

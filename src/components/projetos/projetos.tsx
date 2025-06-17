@@ -1,3 +1,5 @@
+"use client";
+
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
 
 export default function Projetos({ limit }: { limit?: number }) {
@@ -110,6 +112,13 @@ export default function Projetos({ limit }: { limit?: number }) {
 
   const projetosLimit = limit ? projetos.slice(0, limit) : projetos;
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, link: string) => {
+    if (link === "#") {
+      e.preventDefault();
+      alert("Este link não está disponível.");
+    }
+  };
+
   return (
     <>
       <h1 className="text-5xl font-bold leading-tight text-center mb-3 text-sky-700">
@@ -143,6 +152,7 @@ export default function Projetos({ limit }: { limit?: number }) {
                   href={projeto.live}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={(e) => handleClick(e, projeto.live)}
                   className="bg-sky-700 text-white px-4 py-2 rounded flex items-center text-sm hover:bg-sky-800 transition-colors"
                 >
                   <FaExternalLinkAlt className="mr-2" />
@@ -152,6 +162,7 @@ export default function Projetos({ limit }: { limit?: number }) {
                   href={projeto.code}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={(e) => handleClick(e, projeto.code)}
                   className="bg-gray-200 text-gray-800 px-4 py-2 rounded flex items-center text-sm hover:bg-gray-300 transition-colors"
                 >
                   <FaGithub className="mr-2" />
