@@ -16,7 +16,7 @@ export default function Hero() {
         </p>
 
         <a
-          href="/Curriculo-FelipeF.pdf"  // Coloque o arquivo do currículo na pasta public
+          href="/curriculo_freitas_silva_v2.pdf" 
           download
           className="mt-4 bg-sky-700 text-white px-6 py-2 rounded hover:bg-sky-800 transition-colors duration-300"
           data-aos="fade-up"
