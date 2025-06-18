@@ -1,3 +1,22 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+const stacks = [
+  { src: "/react.svg", alt: "React" },
+  { src: "/js.svg", alt: "JavaScript" },
+  { src: "/html.svg", alt: "HTML" },
+  { src: "/css.svg", alt: "CSS" },
+  { src: "/tailwind.svg", alt: "Tailwind CSS" },
+  { src: "/bootstrap.svg", alt: "Bootstrap" },
+  { src: "/nextjs-light.svg", alt: "Next.js" },
+  { src: "/git-icon.svg", alt: "Git" },
+  { src: "/vscode.svg", alt: "VSCode" },
+  { src: "/csharp.svg", alt: "C#" },
+  { src: "/python.svg", alt: "Python" },
+  { src: "/nodejs-dark.svg", alt: "Node.js" },
+];
+
 export default function Stack() {
   return (
     <>
@@ -7,67 +26,19 @@ export default function Stack() {
       <p className="flex text-1xl font-light justify-center">
         Tecnologias que eu uso
       </p>
-      <div className="grid grid-cols-3 gap-4 mt-5 justify-items-center">
-        <img
-          src="/react.svg"
-          alt="React"
-          className="w-20 h-auto transition-transform duration-300 hover:scale-110 animate-spin3d"
-        />
-        <img
-          src="/js.svg"
-          alt="JavaScript"
-          className="w-20 h-auto transition-transform duration-300 hover:scale-110 animate-spin3d"
-        />
-        <img
-          src="/html.svg"
-          alt="HTML"
-          className="w-20 h-auto transition-transform duration-300 hover:scale-110 animate-spin3d"
-        />
-        <img
-          src="/css.svg"
-          alt="CSS"
-          className="w-20 h-auto transition-transform duration-300 hover:scale-110 animate-spin3d"
-        />
-        <img
-          src="/tailwind.svg"
-          alt="Tailwind CSS"
-          className="w-20 h-auto transition-transform duration-300 hover:scale-110 animate-spin3d"
-        />
-        <img
-          src="/bootstrap.svg"
-          alt="Bootstrap"
-          className="w-20 h-auto transition-transform duration-300 hover:scale-110 animate-spin3d"
-        />
-        <img
-          src="/nextjs-light.svg"
-          alt="Next.js"
-          className="w-20 h-auto transition-transform duration-300 hover:scale-110 animate-spin3d"
-        />
-        <img
-          src="/git-icon.svg"
-          alt="Git"
-          className="w-20 h-auto transition-transform duration-300 hover:scale-110 animate-spin3d"
-        />
-        <img
-          src="/vscode.svg"
-          alt="VSCode"
-          className="w-20 h-auto transition-transform duration-300 hover:scale-110 animate-spin3d"
-        />
-        <img
-          src="/csharp.svg"
-          alt="C#"
-          className="w-20 h-auto transition-transform duration-300 hover:scale-110 animate-spin3d"
-        />
-        <img
-          src="/python.svg"
-          alt="Python"
-          className="w-20 h-auto transition-transform duration-300 hover:scale-110 animate-spin3d"
-        />
-        <img
-          src="/nodejs-dark.svg"
-          alt="Node.js"
-          className="w-20 h-auto transition-transform duration-300 hover:scale-110 animate-spin3d"
-        />
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-5 justify-items-center">
+        {stacks.map((item, idx) => (
+          <motion.img
+            key={item.alt}
+            src={item.src}
+            alt={item.alt}
+            loading="lazy"
+            className="w-20 h-auto transition-transform duration-300 hover:scale-110"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: idx * 0.08 }}
+          />
+        ))}
       </div>
     </>
   );

@@ -1,8 +1,19 @@
 "use client";
 
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import aos from "aos";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+
+export function useAOS() {
+  useEffect(() => {
+    aos.init({ duration: 800, once: true });
+  }, []);
+}
 
 export default function Projetos({ limit }: { limit?: number }) {
+  useAOS();
+
   const projetos = [
     {
       id: 1,
@@ -26,7 +37,7 @@ export default function Projetos({ limit }: { limit?: number }) {
     },
     {
       id: 3,
-      imagem: "/Logo header - Casa Fácil EPS.png",
+      imagem: "/Logo- casa-eps.png",
       titulo: "Casa Fácil EPS",
       descricao: "Sistema estilo imobiliário.",
       stack: ".NET, C#, SQL Server, Bootstrap",
@@ -82,12 +93,12 @@ export default function Projetos({ limit }: { limit?: number }) {
     },
     {
       id: 9,
-      imagem: "/potifolio.png",
+      imagem: "/LOGO-SOFTWARE.svg",
       titulo: "Site Software Opção",
       descricao:
         "Site oficial da Software Opção com informações de serviços e contato.",
       stack: "SCSS, HTML, JavaScript",
-      live: "#",
+      live: "https://felipesansi.github.io/PotifolioSoftwareOpcao/",
       code: "https://github.com/felipesansi/PotifolioSoftwareOpcao.git",
     },
     {
@@ -101,7 +112,7 @@ export default function Projetos({ limit }: { limit?: number }) {
     },
     {
       id: 11,
-      imagem: "/facilt.png",
+      imagem: "/Logo-lixeiras.png",
       titulo: "E-commerce com Mercado Pago",
       descricao: "Loja virtual com integração ao Mercado Pago.",
       stack: "C#, Bootstrap, SQL, JavaScript, Dropbox, Mercado Pago",
@@ -112,7 +123,10 @@ export default function Projetos({ limit }: { limit?: number }) {
 
   const projetosLimit = limit ? projetos.slice(0, limit) : projetos;
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, link: string) => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    link: string
+  ) => {
     if (link === "#") {
       e.preventDefault();
       alert("Este link não está disponível.");
@@ -129,15 +143,19 @@ export default function Projetos({ limit }: { limit?: number }) {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
-        {projetosLimit.map((projeto) => (
+        {projetosLimit.map((projeto, index) => (
           <div
             key={projeto.id}
             className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+            data-aos={index % 2 === 0 ? "fade-up" : "fade-down"}
+            data-aos-duration="800"
+            data-aos-once="true"
+            data-aos-delay={index * 100}
           >
             <img
               src={projeto.imagem}
               alt={projeto.titulo}
-              className="w-full h-48 object-contain p-4 bg-gray-50"
+              className="w-full h-48 object-contain p-4 bg-sky-950 hover:bg-sky-200 transition-colors"
             />
             <div className="p-5">
               <h3 className="font-semibold text-lg text-gray-800 text-center mb-2">

@@ -34,7 +34,9 @@ export default function RootLayout({
       >
         <Header />
         {children}
-        <Footer />
+       <div className="mt-22">
+          <Footer />
+       </div>
       </body>
     </html>
   );
