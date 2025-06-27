@@ -116,7 +116,7 @@ export default function Projetos({ limit }: { limit?: number }) {
       titulo: "E-commerce com Mercado Pago",
       descricao: "Loja virtual com integração ao Mercado Pago.",
       stack: "C#, Bootstrap, SQL, JavaScript, Dropbox, Mercado Pago",
-      live: "#",
+      live: "https://lixeirasderesina.com.br/",
       code: "#",
     },
   ];
