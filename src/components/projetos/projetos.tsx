@@ -119,6 +119,15 @@ export default function Projetos({ limit }: { limit?: number }) {
       live: "https://lixeirasderesina.com.br/",
       code: "#",
     },
+    {
+      id: 12,
+      imagem: "/Logo-dashbord-py.png",
+      titulo: "dashbord-py",
+      descricao: "Site dashbord desenvolvido em Python  .",
+      stack: "Pandas, Matplotlib, Seaborn, Plotly, streamlit", 
+      live: "https://dash-py.streamlit.app/",
+      code: "https://github.com/felipesansi/ImersaoDadosPython.git",
+    },
   ];
 
   const projetosLimit = limit ? projetos.slice(0, limit) : projetos;
