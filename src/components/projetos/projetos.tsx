@@ -124,9 +124,18 @@ export default function Projetos({ limit }: { limit?: number }) {
       imagem: "/Logo-dashbord-py.png",
       titulo: "dashbord-py",
       descricao: "Site dashbord desenvolvido em Python  .",
-      stack: "Pandas, Matplotlib, Seaborn, Plotly, streamlit", 
+      stack: "Pandas, Matplotlib, Seaborn, Plotly, streamlit",
       live: "https://dash-py.streamlit.app/",
       code: "https://github.com/felipesansi/ImersaoDadosPython.git",
+    },
+    {
+      id: 13,
+      imagem: "/Apporganize.png",
+      titulo: "App organize",
+      descricao: "App organize desenvolvido em React Native.",
+      stack: "React Native, Expo, JavaScript, CSS",
+      live: "#",
+      code: "https://github.com/felipesansi/App-organize.git",
     },
   ];
 
@@ -195,6 +204,15 @@ export default function Projetos({ limit }: { limit?: number }) {
                   <FaGithub className="mr-2" />
                   Código
                 </a>
+                {projeto.id === 13 && (
+                  <a
+                    href="/apks/application-7c0f1453-4266-4ba0-ba41-ad9f67a4b026.apk"
+                    download
+                    className="bg-green-600 text-white px-4 py-2 rounded flex items-center text-sm hover:bg-green-700 transition-colors"
+                  >
+                    Download App
+                  </a>
+                )}
               </div>
             </div>
           </div>
