@@ -1,3 +1,4 @@
+import { FaDownload } from "react-icons/fa";
 export default function Hero() {
   return (
     <div className="w-screen h-screen flex flex-col-reverse md:flex-row items-center justify-center px-6 md:px-20 bg-white text-gray-700">
@@ -18,11 +19,14 @@ export default function Hero() {
         <a
           href="/Profile.pdf" 
           download
-          className="mt-4 bg-sky-700 text-white px-6 py-2 rounded hover:bg-sky-800 transition-colors duration-300"
+          className="mt-4 bg-sky-700 text-white px-6 py-2 rounded hover:bg-sky-800 transition-colors duration-300 flex items-center justify-center"
           data-aos="fade-up"
           data-aos-delay="300"
         >
-          Baixar Currículo
+          <span className="flex items-center justify-center gap-2">
+            Baixar Currículo
+            <FaDownload />
+          </span>
         </a>
 
         

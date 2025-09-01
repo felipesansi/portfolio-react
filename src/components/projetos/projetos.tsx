@@ -1,6 +1,6 @@
 "use client";
 
-import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import { FaExternalLinkAlt, FaGithub, FaDownload } from "react-icons/fa";
 import aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
@@ -206,11 +206,11 @@ export default function Projetos({ limit }: { limit?: number }) {
                 </a>
                 {projeto.id === 13 && (
                   <a
-                    href="/apks/application-7c0f1453-4266-4ba0-ba41-ad9f67a4b026.apk"
+                    href="/apks/AppOrganize.apk"
                     download
                     className="bg-green-600 text-white px-4 py-2 rounded flex items-center text-sm hover:bg-green-700 transition-colors"
                   >
-                    Download App
+                    Download App <FaDownload className="ml-2" />
                   </a>
                 )}
               </div>
