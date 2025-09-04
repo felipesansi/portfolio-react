@@ -1,18 +1,16 @@
-"use client";
-import { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-
 import Hero from "@/components/hero/hero";
 import Projetos from "@/components/projetos/projetos";
-import Stact from "@/components/Stack/stack";
+import Stack from "@/components/Stack/stack";
+import { supabase } from "@/lib/supabase/supabase";
 
-export default function Home() {
-  const limit = 3;
+export const revalidate = 60; // Revalida os dados a cada 60 segundos
 
-  useEffect(() => {
-    AOS.init({ duration: 1000, once: false });
-  }, []);
+export default async function Home() {
+  const { data: projetos, error } = await supabase
+    .from("projetos")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(3);
 
   return (
     <>
@@ -27,14 +25,15 @@ export default function Home() {
         className="w-full min-h-screen flex flex-col overflow-x-hidden"
         data-aos="fade-up"
       >
-        <Stact />
+        <Stack />
       </div>
 
       <div
         className="w-full min-h-screen flex flex-col overflow-x-hidden"
         data-aos="fade-up"
       >
-        <Projetos limit={limit} />
+        {projetos && <Projetos dadosProjetos={projetos} />}
+        {error && <p className="text-center text-red-500">Erro ao carregar os projetos.</p>}
         <div className="flex justify-center mt-6" data-aos="zoom-in">
           <a
             href="/projetos"

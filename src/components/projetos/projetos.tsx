@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { FaExternalLinkAlt, FaGithub, FaDownload } from "react-icons/fa";
 import aos from "aos";
@@ -11,135 +11,26 @@ export function useAOS() {
   }, []);
 }
 
-export default function Projetos({ limit }: { limit?: number }) {
+// Define the type for a single project
+interface Projeto {
+  id: any;
+  imagem_url: string;
+  titulo: string;
+  descricao: string;
+  stack: string[];
+  live_url: string;
+  github_url:string;
+  is_apk: boolean;
+  apk_download_url?: string;
+}
+
+// Define the props for the component
+interface ProjetosProps {
+  dadosProjetos: Projeto[];
+}
+
+export default function Projetos({ dadosProjetos }: ProjetosProps) {
   useAOS();
-
-  const projetos = [
-    {
-      id: 1,
-      imagem: "/cobra.png",
-      titulo: "Jogo da Cobra",
-      descricao:
-        "Um jogo clássico da cobra (Snake Game) desenvolvido com HTML, CSS e JavaScript puro.",
-      stack: "HTML, JavaScript, CSS",
-      live: "https://felipesansi.github.io/Jogo_cobra/",
-      code: "#",
-    },
-    {
-      id: 2,
-      imagem: "/portifolio.png",
-      titulo: "Primeiro Portifólio",
-      descricao:
-        "Este Portifólio foi desenvolvido utilizando HTML, CSS e Javascript.",
-      stack: "HTML, CSS, JavaScript",
-      live: "https://felipesansi.github.io/Site-Portifolio/",
-      code: "https://github.com/felipesansi/Site-Portifolio.git",
-    },
-    {
-      id: 3,
-      imagem: "/Logo- casa-eps.png",
-      titulo: "Casa Fácil EPS",
-      descricao: "Sistema estilo imobiliário.",
-      stack: ".NET, C#, SQL Server, Bootstrap",
-      live: "https://casafacileps.com.br/",
-      code: "#",
-    },
-    {
-      id: 4,
-      imagem: "/senha.png",
-      titulo: "Gerador de Senhas",
-      descricao:
-        "Um gerador de senhas aleatórias com comprimento personalizado.",
-      stack: "Bootstrap, JavaScript",
-      live: "https://felipesansi.github.io/GeradorSenha/",
-      code: "https://github.com/felipesansi/GeradorSenha.git",
-    },
-    {
-      id: 5,
-      imagem: "/relogio.png",
-      titulo: "Cronômetro",
-      descricao: "Cronômetro simples.",
-      stack: "HTML, CSS, JavaScript",
-      live: "https://felipesansi.github.io/Cronometro/",
-      code: "#",
-    },
-    {
-      id: 6,
-      imagem: "/portifolio.png",
-      titulo: "Segundo Portifólio",
-      descricao: "Segundo Portifólio com animações AOS.",
-      stack: "HTML, CSS, JavaScript, Bootstrap, AOS Animation",
-      live: "https://felipesansi.github.io/portifolio-dev-felipe/",
-      code: "https://github.com/felipesansi/portifolio-dev-felipe.git",
-    },
-    {
-      id: 7,
-      imagem: "/luna.ia.png",
-      titulo: "Luna",
-      descricao:
-        "Assistente de computador que realiza ações como tocar música e pesquisar.",
-      stack: "Python, pyAudio, SpeechRecognition",
-      live: "#",
-      code: "https://github.com/felipesansi/Luna.ia.git",
-    },
-    {
-      id: 8,
-      imagem: "/whatsapp.png",
-      titulo: "Automação WhatsApp",
-      descricao: "Automatização de mensagens via WhatsApp Web.",
-      stack: "Node.js, whatsapp-web.js",
-      live: "#",
-      code: "https://github.com/felipesansi/Api-whats.git",
-    },
-    {
-      id: 9,
-      imagem: "/LOGO-SOFTWARE.svg",
-      titulo: "Site Software Opção",
-      descricao:
-        "Site oficial da Software Opção com informações de serviços e contato.",
-      stack: "SCSS, HTML, JavaScript",
-      live: "https://felipesansi.github.io/PotifolioSoftwareOpcao/",
-      code: "https://github.com/felipesansi/PotifolioSoftwareOpcao.git",
-    },
-    {
-      id: 10,
-      imagem: "/facilt.png",
-      titulo: "Facilit TCC",
-      descricao: "Trabalho de Conclusão de Curso - Unifaat 2024.",
-      stack: "C#, Bootstrap, MySQL, JavaScript",
-      live: "#",
-      code: "https://github.com/felipesansi/Facilit.git",
-    },
-    {
-      id: 11,
-      imagem: "/Logo-lixeiras.png",
-      titulo: "E-commerce com Mercado Pago",
-      descricao: "Loja virtual com integração ao Mercado Pago.",
-      stack: "C#, Bootstrap, SQL, JavaScript, Dropbox, Mercado Pago",
-      live: "https://lixeirasderesina.com.br/",
-      code: "#",
-    },
-    {
-      id: 12,
-      imagem: "/Logo-dashbord-py.png",
-      titulo: "dashbord-py",
-      descricao: "Site dashbord desenvolvido em Python  .",
-      stack: "Pandas, Matplotlib, Seaborn, Plotly, streamlit",
-      live: "https://dash-py.streamlit.app/",
-      code: "https://github.com/felipesansi/ImersaoDadosPython.git",
-    },
-    {
-      id: 13,
-      imagem: "/Apporganize.png",
-      titulo: "App organize",
-      descricao: "App organize desenvolvido em React Native.",
-      stack: "React Native, Expo, JavaScript, CSS",
-      live: "#",
-      code: "https://github.com/felipesansi/App-organize.git",
-    },
-  ];
-
-  const projetosLimit = limit ? projetos.slice(0, limit) : projetos;
 
   const handleClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
@@ -151,6 +42,13 @@ export default function Projetos({ limit }: { limit?: number }) {
     }
   };
 
+  if (!dadosProjetos) {
+    return <p className="text-center text-lg">Carregando projetos...</p>;
+  }
+
+
+  const projetosRender = dadosProjetos;
+
   return (
     <>
       <h1 className="text-5xl font-bold leading-tight text-center mb-3 text-sky-700">
@@ -161,7 +59,7 @@ export default function Projetos({ limit }: { limit?: number }) {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
-        {projetosLimit.map((projeto, index) => (
+        {projetosRender.map((projeto, index) => (
           <div
             key={projeto.id}
             className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"
@@ -171,7 +69,7 @@ export default function Projetos({ limit }: { limit?: number }) {
             data-aos-delay={index * 100}
           >
             <img
-              src={projeto.imagem}
+              src={projeto.imagem_url}
               alt={projeto.titulo}
               className="w-full h-48 object-contain p-4 bg-sky-950 hover:bg-sky-200 transition-colors"
             />
@@ -181,32 +79,32 @@ export default function Projetos({ limit }: { limit?: number }) {
               </h3>
               <p className="text-gray-600 text-sm mb-2">{projeto.descricao}</p>
               <p className="text-gray-800 text-sm font-bold mb-4">
-                Stack: {projeto.stack}
+                Stack: {projeto.stack.join(", ")}
               </p>
               <div className="flex justify-between items-center gap-2">
                 <a
-                  href={projeto.live}
+                  href={projeto.live_url}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={(e) => handleClick(e, projeto.live)}
+                  onClick={(e) => handleClick(e, projeto.live_url)}
                   className="bg-sky-700 text-white px-4 py-2 rounded flex items-center text-sm hover:bg-sky-800 transition-colors"
                 >
                   <FaExternalLinkAlt className="mr-2" />
                   Ver Projeto
                 </a>
                 <a
-                  href={projeto.code}
+                  href={projeto.github_url}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={(e) => handleClick(e, projeto.code)}
+                  onClick={(e) => handleClick(e, projeto.github_url)}
                   className="bg-gray-200 text-gray-800 px-4 py-2 rounded flex items-center text-sm hover:bg-gray-300 transition-colors"
                 >
                   <FaGithub className="mr-2" />
                   Código
                 </a>
-                {projeto.id === 13 && (
+                {projeto.is_apk && projeto.apk_download_url && (
                   <a
-                    href="/apks/AppOrganize.apk"
+                    href={projeto.apk_download_url}
                     download
                     className="bg-green-600 text-white px-4 py-2 rounded flex items-center text-sm hover:bg-green-700 transition-colors"
                   >
