@@ -6,7 +6,7 @@ import React from 'react';
 import { supabase } from '@/lib/supabase/supabase';
 import Projetos from '@/components/projetos/projetos';
 
-export const revalidate = 60; // Revalida os dados a cada 60 segundos
+export const revalidate = 1; // Revalida os dados a cada 60 segundos
 
 export default async function ProjetosPage() {
     // Busca os dados diretamente no servidor

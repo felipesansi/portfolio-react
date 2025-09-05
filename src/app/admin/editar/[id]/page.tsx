@@ -143,7 +143,7 @@ export default function EditarProjetoPage() {
           </div>
           <div>
             <label className="block text-gray-700">URL do Live Demo</label>
-            <input type="url" value={urlLive} onChange={(e) => setUrlLive(e.target.value)} required className="w-full px-3 py-2 border rounded"/>
+            <input type="url" value={urlLive} onChange={(e) => setUrlLive(e.target.value)} className="w-full px-3 py-2 border rounded"/>
           </div>
           <div>
             <label className="block text-gray-700">URL do GitHub</label>
