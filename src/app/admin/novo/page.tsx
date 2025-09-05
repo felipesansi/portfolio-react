@@ -103,8 +103,8 @@ export default function NovoProjetoPage() {
             <input type="file" onChange={handleFileChange} required className="w-full"/>
           </div>
           <div>
-            <label className="block text-gray-700">URL do Live Demo</label>
-            <input type="url" value={liveUrl} onChange={(e) => setLiveUrl(e.target.value)} required className="w-full px-3 py-2 border rounded"/>
+            <label className="block text-gray-700">URL do Live Demotração</label>
+            <input type="url" value={liveUrl} onChange={(e) => setLiveUrl(e.target.value)}  className="w-full px-3 py-2 border rounded"/>
           </div>
           <div>
             <label className="block text-gray-700">URL do GitHub</label>
@@ -112,7 +112,7 @@ export default function NovoProjetoPage() {
           </div>
           <div className="flex items-center space-x-2">
             <input type="checkbox" checked={isApk} onChange={(e) => setIsApk(e.target.checked)} className="h-4 w-4"/>
-            <label className="text-gray-700">É um APK?</label>
+            <label className="text-gray-700">É um aplicativo para Android?</label>
           </div>
           {isApk && (
             <div>
