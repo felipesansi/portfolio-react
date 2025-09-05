@@ -7,29 +7,29 @@ import { useRouter, useParams } from "next/navigation";
 export default function EditarProjetoPage() {
   const [titulo, setTitulo] = useState("");
   const [descricao, setDescricao] = useState("");
-  const [stack, setStack] = useState("");
+  const [tecnologias, setTecnologias] = useState("");
   const [imagem, setImagem] = useState<File | null>(null);
-  const [currentImageUrl, setCurrentImageUrl] = useState<string | null>(null);
-  const [liveUrl, setLiveUrl] = useState("");
-  const [githubUrl, setGithubUrl] = useState("");
-  const [isApk, setIsApk] = useState(false);
-  const [apkDownloadUrl, setApkDownloadUrl] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [loadingData, setLoadingData] = useState(true);
+  const [imagemUrlAtual, setImagemUrlAtual] = useState<string | null>(null);
+  const [urlLive, setUrlLive] = useState("");
+  const [urlGithub, setUrlGithub] = useState("");
+  const [temApk, setTemApk] = useState(false);
+  const [urlDownloadApk, setUrlDownloadApk] = useState("");
+  const [carregando, setCarregando] = useState(false);
+  const [carregandoDados, setCarregandoDados] = useState(true);
 
   const router = useRouter();
   const params = useParams();
-  const projectId = params.id;
+  const projetoId = params.id;
 
   useEffect(() => {
-    if (!projectId) return;
+    if (!projetoId) return;
 
-    const fetchProjeto = async () => {
-      setLoadingData(true);
+    const buscarProjeto = async () => {
+      setCarregandoDados(true);
       const { data, error } = await supabase
         .from("projetos")
         .select("*")
-        .eq("id", projectId)
+        .eq("id", projetoId)
         .single();
 
       if (error || !data) {
@@ -41,68 +41,66 @@ export default function EditarProjetoPage() {
 
       setTitulo(data.titulo);
       setDescricao(data.descricao);
-      setStack(data.stack.join(", "));
-      setCurrentImageUrl(data.imagem_url);
-      setLiveUrl(data.live_url);
-      setGithubUrl(data.github_url);
-      setIsApk(data.is_apk);
-      setApkDownloadUrl(data.apk_download_url || "");
-      setLoadingData(false);
+      setTecnologias(data.stack.join(", "));
+      setImagemUrlAtual(data.imagem_url);
+      setUrlLive(data.live_url);
+      setUrlGithub(data.github_url);
+      setTemApk(data.is_apk);
+      setUrlDownloadApk(data.apk_download_url || "");
+      setCarregandoDados(false);
     };
 
-    fetchProjeto();
-  }, [projectId, router]);
+    buscarProjeto();
+  }, [projetoId, router]);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImagemChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setImagem(e.target.files[0]);
-      setCurrentImageUrl(URL.createObjectURL(e.target.files[0])); // Show preview
+      setImagemUrlAtual(URL.createObjectURL(e.target.files[0]));
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleEditarSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setCarregando(true);
 
     try {
-      let imageUrl = currentImageUrl;
+      let urlDaImagem = imagemUrlAtual;
 
-      // 1. Upload da nova imagem, se houver
       if (imagem) {
-        const fileExtension = imagem.name.split('.').pop();
-        const fileName = `${Date.now()}.${fileExtension}`;
-        const { error: uploadError } = await supabase.storage
+        const extensaoArquivo = imagem.name.split('.').pop();
+        const nomeArquivo = `${Date.now()}.${extensaoArquivo}`;
+        const { error: erroUpload } = await supabase.storage
           .from("portfolio-images")
-          .upload(fileName, imagem);
+          .upload(nomeArquivo, imagem);
 
-        if (uploadError) {
-          throw new Error("Erro no upload da imagem: " + uploadError.message);
+        if (erroUpload) {
+          throw new Error("Erro no upload da imagem: " + erroUpload.message);
         }
         
-        const { data: publicUrlData } = supabase.storage
+        const { data: dadosUrlPublica } = supabase.storage
           .from("portfolio-images")
-          .getPublicUrl(fileName);
+          .getPublicUrl(nomeArquivo);
           
-        imageUrl = publicUrlData.publicUrl;
+        urlDaImagem = dadosUrlPublica.publicUrl;
       }
 
-      // 2. Atualizar os dados do projeto
-      const { error: updateError } = await supabase
+      const { error: erroAtualizacao } = await supabase
         .from("projetos")
         .update({
           titulo,
           descricao,
-          stack: stack.split(',').map(s => s.trim()),
-          imagem_url: imageUrl,
-          live_url: liveUrl,
-          github_url: githubUrl,
-          is_apk: isApk,
-          apk_download_url: isApk ? apkDownloadUrl : null,
+          stack: tecnologias.split(',').map(s => s.trim()),
+          imagem_url: urlDaImagem,
+          live_url: urlLive,
+          github_url: urlGithub,
+          is_apk: temApk,
+          apk_download_url: temApk ? urlDownloadApk : null,
         })
-        .eq("id", projectId);
+        .eq("id", projetoId);
 
-      if (updateError) {
-        throw new Error("Erro ao atualizar o projeto: " + updateError.message);
+      if (erroAtualizacao) {
+        throw new Error("Erro ao atualizar o projeto: " + erroAtualizacao.message);
       }
 
       alert("Projeto atualizado com sucesso!");
@@ -112,11 +110,11 @@ export default function EditarProjetoPage() {
       console.error(err);
       alert(err.message);
     } finally {
-      setLoading(false);
+      setCarregando(false);
     }
   };
 
-  if (loadingData) {
+  if (carregandoDados) {
     return <div className="min-h-screen flex items-center justify-center">Carregando dados do projeto...</div>;
   }
 
@@ -124,7 +122,7 @@ export default function EditarProjetoPage() {
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-3xl mx-auto bg-white p-6 rounded shadow-md">
         <h2 className="text-2xl font-bold mb-6">Editar Projeto</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleEditarSubmit} className="space-y-4">
           <div>
             <label className="block text-gray-700">Título</label>
             <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} required className="w-full px-3 py-2 border rounded"/>
@@ -135,34 +133,34 @@ export default function EditarProjetoPage() {
           </div>
           <div>
             <label className="block text-gray-700">Stack (separado por vírgulas)</label>
-            <input type="text" value={stack} onChange={(e) => setStack(e.target.value)} required className="w-full px-3 py-2 border rounded"/>
+            <input type="text" value={tecnologias} onChange={(e) => setTecnologias(e.target.value)} required className="w-full px-3 py-2 border rounded"/>
           </div>
           <div>
             <label className="block text-gray-700">Imagem do Projeto</label>
-            {currentImageUrl && <img src={currentImageUrl} alt="Preview" className="w-48 h-auto my-2" />}
-            <input type="file" onChange={handleFileChange} className="w-full"/>
+            {imagemUrlAtual && <img src={imagemUrlAtual} alt="Preview" className="w-48 h-auto my-2" />}
+            <input type="file" onChange={handleImagemChange} className="w-full"/>
             <p className="text-sm text-gray-500">Deixe em branco para manter a imagem atual.</p>
           </div>
           <div>
             <label className="block text-gray-700">URL do Live Demo</label>
-            <input type="url" value={liveUrl} onChange={(e) => setLiveUrl(e.target.value)} required className="w-full px-3 py-2 border rounded"/>
+            <input type="url" value={urlLive} onChange={(e) => setUrlLive(e.target.value)} required className="w-full px-3 py-2 border rounded"/>
           </div>
           <div>
             <label className="block text-gray-700">URL do GitHub</label>
-            <input type="url" value={githubUrl} onChange={(e) => setGithubUrl(e.target.value)} required className="w-full px-3 py-2 border rounded"/>
+            <input type="url" value={urlGithub} onChange={(e) => setUrlGithub(e.target.value)} required className="w-full px-3 py-2 border rounded"/>
           </div>
           <div className="flex items-center space-x-2">
-            <input type="checkbox" checked={isApk} onChange={(e) => setIsApk(e.target.checked)} className="h-4 w-4"/>
-            <label className="text-gray-700">É um APK?</label>
+            <input type="checkbox" checked={temApk} onChange={(e) => setTemApk(e.target.checked)} className="h-4 w-4"/>
+            <label className="text-gray-700">É um aplicativo Android?</label>
           </div>
-          {isApk && (
+          {temApk && (
             <div>
               <label className="block text-gray-700">URL de Download do APK</label>
-              <input type="url" value={apkDownloadUrl} onChange={(e) => setApkDownloadUrl(e.target.value)} className="w-full px-3 py-2 border rounded"/>
+              <input type="url" value={urlDownloadApk} onChange={(e) => setUrlDownloadApk(e.target.value)} className="w-full px-3 py-2 border rounded"/>
             </div>
           )}
-          <button type="submit" disabled={loading} className="w-full bg-sky-700 text-white py-2 rounded hover:bg-sky-600">
-            {loading ? "Salvando..." : "Salvar Alterações"}
+          <button type="submit" disabled={carregando} className="w-full bg-sky-700 text-white py-2 rounded hover:bg-sky-600">
+            {carregando ? "Salvando..." : "Salvar Alterações"}
           </button>
         </form>
       </div>

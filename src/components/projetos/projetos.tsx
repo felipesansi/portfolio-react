@@ -11,7 +11,7 @@ export function useAOS() {
   }, []);
 }
 
-// Define the type for a single project
+// define a interface para os dados do projeto
 interface Projeto {
   id: any;
   imagem_url: string;
@@ -24,7 +24,7 @@ interface Projeto {
   apk_download_url?: string;
 }
 
-// Define the props for the component
+// define o componente Projetos
 interface ProjetosProps {
   dadosProjetos: Projeto[];
 }
@@ -32,13 +32,13 @@ interface ProjetosProps {
 export default function Projetos({ dadosProjetos }: ProjetosProps) {
   useAOS();
 
-  const handleClick = (
+  const vericarLink = ( // Impede o comportamento padrão para links "#"
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
     link: string
   ) => {
     if (link === "#") {
       e.preventDefault();
-      alert("Este link não está disponível.");
+      <div className="text-center text-red-500">Link indisponível no momento.</div>;
     }
   };
 
@@ -47,7 +47,7 @@ export default function Projetos({ dadosProjetos }: ProjetosProps) {
   }
 
 
-  const projetosRender = dadosProjetos;
+  const lerProjetos = dadosProjetos;
 
   return (
     <>
@@ -59,7 +59,7 @@ export default function Projetos({ dadosProjetos }: ProjetosProps) {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5">
-        {projetosRender.map((projeto, index) => (
+        {lerProjetos.map((projeto, index) => (
           <div
             key={projeto.id}
             className="bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"
@@ -86,7 +86,7 @@ export default function Projetos({ dadosProjetos }: ProjetosProps) {
                   href={projeto.live_url}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={(e) => handleClick(e, projeto.live_url)}
+                  onClick={(e) => vericarLink(e, projeto.live_url)}
                   className="bg-sky-700 text-white px-4 py-2 rounded flex items-center text-sm hover:bg-sky-800 transition-colors"
                 >
                   <FaExternalLinkAlt className="mr-2" />
@@ -96,7 +96,7 @@ export default function Projetos({ dadosProjetos }: ProjetosProps) {
                   href={projeto.github_url}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={(e) => handleClick(e, projeto.github_url)}
+                  onClick={(e) => vericarLink(e, projeto.github_url)}
                   className="bg-gray-200 text-gray-800 px-4 py-2 rounded flex items-center text-sm hover:bg-gray-300 transition-colors"
                 >
                   <FaGithub className="mr-2" />
