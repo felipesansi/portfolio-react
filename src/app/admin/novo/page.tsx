@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase/supabase";
-import { gemini } from "@/lib/supabase/gemini";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 
 export default function NovoProjetoPage() {
@@ -19,7 +19,7 @@ export default function NovoProjetoPage() {
   const [aiLoading, setAiLoading] = useState(false);
   const [aiPrompt, setAiPrompt] = useState("");
   const [formMessage, setFormMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
-  
+
   const router = useRouter();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +37,9 @@ export default function NovoProjetoPage() {
     setFormMessage(null);
 
     try {
-      const model = gemini.getGenerativeModel({ model: "gemini-pro" });
+      // Inicialize o cliente do Gemini aqui, onde o código é executado no cliente.
+      const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY as string);
+      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
       const prompt = `
         Com base na seguinte ideia de projeto, gere sugestões para um portfólio.
         Ideia: "${aiPrompt}"
@@ -90,7 +92,7 @@ export default function NovoProjetoPage() {
         }
 
         // 2. OBTENÇÃO DO URL PÚBLICO:
-        // Este é o ajuste. Usamos getPublicUrl() para garantir que a URL está correta.
+        // Usamos getPublicUrl() para garantir que a URL está correta.
         const { data: publicUrlData } = supabase
           .storage
           .from("portfolio-images")
@@ -106,7 +108,7 @@ export default function NovoProjetoPage() {
           titulo,
           descricao,
           stack: stack.split(',').map(s => s.trim()),
-          imagem_url: imageUrl, // AQUI VAI A URL PÚBLICA CORRETA
+          imagem_url: imageUrl,
           live_url: liveUrl,
           github_url: githubUrl,
           is_apk: isApk,
