@@ -37,9 +37,11 @@ export default function NovoProjetoPage() {
     setFormMessage(null);
 
     try {
-      // Inicialize o cliente do Gemini aqui, onde o código é executado no cliente.
       const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY as string);
+      
+      // ALTERAÇÃO AQUI: Use o modelo "gemini-2.0-flash"
       const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+      
       const prompt = `
         Com base na seguinte ideia de projeto, gere sugestões para um portfólio.
         Ideia: "${aiPrompt}"
@@ -92,7 +94,6 @@ export default function NovoProjetoPage() {
         }
 
         // 2. OBTENÇÃO DO URL PÚBLICO:
-        // Usamos getPublicUrl() para garantir que a URL está correta.
         const { data: publicUrlData } = supabase
           .storage
           .from("portfolio-images")
