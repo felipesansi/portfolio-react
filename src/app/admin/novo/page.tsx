@@ -39,7 +39,7 @@ export default function NovoProjetoPage() {
     try {
       // Inicialize o cliente do Gemini aqui, onde o código é executado no cliente.
       const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY as string);
-      const model = genAI.getGenerativeModel({ model: "gemini-1.0-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
       const prompt = `
         Com base na seguinte ideia de projeto, gere sugestões para um portfólio.
         Ideia: "${aiPrompt}"
