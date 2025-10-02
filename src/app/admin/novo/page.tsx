@@ -37,7 +37,7 @@ export default function NovoProjetoPage() {
 
     try {
       const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY as string);
-      const modelo = genAI.getGenerativeModel({ model: "text-bison-001" });
+      const modelo = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
       const prompt = `
         Gere sugestões para um portfólio com base nesta ideia: "${promptIA}".
