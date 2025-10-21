@@ -1,6 +1,6 @@
 'use client';
 
-import { FaExternalLinkAlt, FaGithub, FaDownload } from "react-icons/fa";
+import { FaExternalLinkAlt, FaGithub, FaDownload, FaStar} from "react-icons/fa";
 import aos from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
@@ -63,14 +63,23 @@ export default function Projetos({ dadosProjetos }: ProjetosProps) {
               alt={projeto.titulo}
               className="w-full h-48 object-contain p-4 bg-sky-950 hover:bg-sky-200 transition-colors"
             />
+            
             <div className="p-5">
               <h3 className="font-semibold text-lg text-gray-800 text-center mb-2">
                 {projeto.titulo}
               </h3>
+                  <div className="mb-4">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <FaStar key={i} className="inline text-yellow-500 mr-1 align-text-top" />
+                  
+                ))}
+                <span className="text-gray-600 text-sm align-text-top flex ">(5.0)</span>
+              </div>
               <p className="text-gray-600 text-sm mb-2">{projeto.descricao}</p>
               <p className="text-gray-800 text-sm font-bold mb-4">
                 Stack: {projeto.stack.join(", ")}
               </p>
+          
               <div className="flex justify-start items-center gap-2 flex-wrap">
                 <a
                   href={projeto.live_url && projeto.live_url !== "#" ? projeto.live_url : undefined}
@@ -97,6 +106,7 @@ export default function Projetos({ dadosProjetos }: ProjetosProps) {
                       : 'opacity-50 cursor-not-allowed'}
                   `}
                 >
+           
                   <FaGithub className="mr-2" />
                   Código
                 </a>

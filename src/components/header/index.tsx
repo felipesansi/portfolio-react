@@ -27,22 +27,22 @@ export default function Header() {
         >
           <ul className="flex flex-col md:flex-row md:space-x-4 mt-4 md:mt-0 items-center text-center pb-4 md:pb-0">
             <li>
-              <a href="/" className="hover:text-gray-400 px-4 md:px-10">
+              <a href="/" className="text-lg hover:text-gray-400 px-4 md:px-10">
                 Início
               </a>
             </li>
             <li>
-              <a href="/projetos" className="hover:text-gray-400 px-4 md:px-10">
+              <a href="/projetos" className="text-lg hover:text-gray-400 px-4 md:px-10">
                 Projetos
               </a>
             </li>
             <li>
-              <a href="/contato" className="hover:text-gray-400 px-4 md:px-10">
+              <a href="/contato" className="text-lg hover:text-gray-400 px-4 md:px-10">
                 Contato
               </a>
             </li>
             <li>
-              <a href="/servicos" className="hover:text-gray-400 px-4 md:px-10">
+              <a href="/servicos" className="text-lg hover:text-gray-400 px-4 md:px-10">
                 Serviços
               </a>
             </li>
